@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema 
 
@@ -23,4 +23,4 @@ const wordDefinitionSchema = new Schema({
     }]
 })
 
-export default mongoose.model("WordDefinition", wordDefinitionSchema)
+module.exports = mongoose.model("WordDefinition", wordDefinitionSchema);

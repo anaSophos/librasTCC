@@ -1,15 +1,14 @@
-const express = require("express");
+import express from 'express';
+import cors from 'cors';
+import routes from './routes/routes.js';
+
 const app = express();
 
-require("dotenv").config();
-require("./db.js")
+app.use(
+    express.urlencoded({ extended: true })
+);
 
-const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use(routes);
 
-const wordDefinitionRouter = require("./routes/routes.js")
-
-app.use("/word_definition", wordDefinitionRouter);
-
-app.listen(port, () => {
-    console.log(`o servidor ${port}`);
-})
+export default app;

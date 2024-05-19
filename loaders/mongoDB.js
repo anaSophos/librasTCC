@@ -6,7 +6,7 @@ dotenv.config();
 
 mongoose.set("strictQuery", true);
 
-const url = `mongodb://${process.env.ADDRESS_DATA_BASE}:${process.env.PORT_URL}/`;
+const url = `mongodb://${process.env.ADDRESS_DATA_BASE}:${process.env.PORT_URL}/Libras`;
 
 async function startDB() {
     mongoose.set("strictQuery", true);

@@ -8,6 +8,9 @@ import CategoryController from "../controllers/CategoryController.js";
 
 router.post("/", WordDefinitionController.create);
 router.post("/word", WordController.create);
+router.get("/word", WordController.getAll)
+router.get("/word/:name", WordController.findOne)
+router.get("/category", CategoryController.getAll)
 router.post("/category", CategoryController.create);
 
 router.get('/', (req, res) => {

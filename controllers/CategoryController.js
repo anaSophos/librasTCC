@@ -9,6 +9,15 @@ class CategoryController {
             res.status(400).json({ message: "Category creation failed", error: error.message });
         }
     }
+
+    async getAll (req,res){
+        try {
+            const data = await Category.find()
+            res.status(200).json({data})
+        } catch (error) {
+            res.status(400).json({message:"Error Get failed",error:error.message})
+        }
+    }
 }
 
 export default new CategoryController();

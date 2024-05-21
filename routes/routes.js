@@ -3,7 +3,7 @@ const router = express.Router();
 
 import WordDefinitionController from "../controllers/WordDefinitionController.js";
 import WordController from '../controllers/WordController.js';
-
+import UploadImageController from "../controllers/UploadImageController.js";
 import CategoryController from "../controllers/CategoryController.js";
 
 router.post("/", WordDefinitionController.create);

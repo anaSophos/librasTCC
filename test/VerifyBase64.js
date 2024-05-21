@@ -5,6 +5,6 @@ const buffer = Buffer.from(base64String, 'base64');
 import fs from 'fs'
 
 console.log(buffer)
-fs.writeFileSync('image.jpg', buffer); // Salva a imagem em um arquivo
+fs.writeFileSync('image.jpg', buffer);
 
 console.log('Imagem decodificada e salva como image.jpg');

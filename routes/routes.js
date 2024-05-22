@@ -10,6 +10,8 @@ router.post("/", WordDefinitionController.create);
 router.post("/word", WordController.create);
 router.get("/word", WordController.getAll)
 router.get("/word/:name", WordController.findOne)
+router.put("/word/:id", WordController.updateOne)
+
 router.get("/category", CategoryController.getAll)
 router.post("/category", CategoryController.create);
 

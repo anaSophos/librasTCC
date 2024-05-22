@@ -4,7 +4,7 @@ class WordController {
     async create(req, res) {
         try {
             const body = req.body;
-            await Word.create(body);
+            await Word.create(body).populate('wordDefinitions.category');
             res.status(201).json({ message: "Word created successfully" });
         } catch (error) {
             res.status(400).json({ message: "Word creation failed", error: error.message });
@@ -29,10 +29,22 @@ class WordController {
             res.status(400).json({message:"Error Get one failed",error:error.message})
         }
     }
-    async UpdateOne (req, res){
+    async updateOne (req, res){
         try {
             const {id} = req.params
-            const word = await Word.updateOne({_id: id})
+            const body = req.body
+
+
+        if (body.wordDefinitions && Array.isArray(body.wordDefinitions)) {
+            body.wordDefinitions = body.wordDefinitions.map(definition => {
+                if (definition.category && definition.category._id) {
+                    definition.category = definition.category._id; 
+                }
+                return definition;
+            });
+        }
+
+            const word = await Word.updateOne({_id: id},{$set: body})
             res.status(200).json({message:"Word updated successfully",word})    
         } catch (error) {
             res.status(400).json({message:"Error Update one failed",error:error.message})

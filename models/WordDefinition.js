@@ -11,9 +11,14 @@ const wordDefinitionSchema = new Schema({
         type: String,
         required: true
     },
-    category:[{
+    categoryId:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
+        default: true
+    }],
+    wordId:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'WordDefinition',
         default: true
     }]
 })

@@ -1,2 +1,2 @@
-import Loaders from "./loaders/index.js"
+import Loaders from "./db/index.js"
 Loaders.start();

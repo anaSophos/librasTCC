@@ -4,7 +4,9 @@ class WordController {
     async create(req, res) {
         try {
             const body = req.body;
-            await Word.create(body).populate('wordDefinitions.category');
+            console.log(body)
+            const a =await Word.create(body)
+            console.log(a)
             res.status(201).json({ message: "Word created successfully" });
         } catch (error) {
             res.status(400).json({ message: "Word creation failed", error: error.message });
@@ -19,16 +21,41 @@ class WordController {
             res.status(400).json({message:"Error Get failed",error:error.message})
         }
     }
-    async findOne(req,res){
+    async findOne(req, res) {
         try {
-            const {name} = req.params
-            console.log()
-            const word = await Word.findOne({nameWord:name}).populate('wordDefinitions.category')
-            res.status(200).json([word])
+            const { name } = req.params;
+            console.log(name)
+            const word = await Word.findOne({ nameWord: name }).populate('wordDefinitions.category');
+            
+            if (word === null) {
+                return res.status(200).json([]);
+            }
+    
+            res.status(200).json([word]);
         } catch (error) {
-            res.status(400).json({message:"Error Get one failed",error:error.message})
+            return res.status(400).json({ message: "Error Get one failed", error: error.message });
         }
     }
+    async findOneId(req, res) {
+        try {
+            const { id } = req.params;
+            console.log(id)
+            const word = await Word.findOne({ _id: id })
+
+            if (word === null) {
+                return res.status(200).json();
+            }
+console.log(word)
+            // word.wordDefinitions.map((item)=>{
+            //     console.log(item)
+            // })
+    
+            res.status(200).json(word);
+        } catch (error) {
+            return res.status(400).json({ message: "Error Get one failed", error: error.message });
+        }
+    }
+    
     async updateOne (req, res){
         try {
             const {id} = req.params

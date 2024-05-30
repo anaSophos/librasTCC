@@ -11,6 +11,7 @@ router.post("/word", WordController.create);
 router.get("/word", WordController.getAll)
 router.get("/word/:name", WordController.findOne)
 router.get("/word_id/:id", WordController.findOneId)
+router.put("/word_id/:id/signal", WordController.updateOneaddWordDefinition)
 router.put("/word/:id", WordController.updateOne)
 router.get("/category", CategoryController.getAll)
 router.post("/category", CategoryController.create);

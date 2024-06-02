@@ -4,6 +4,7 @@ class WordController {
     async create(req, res) {
         try {
             const body = req.body;
+            console.log(body);
             const a =await Word.create(body)
             console.log(a)
             res.status(201).json({ message: "Word created successfully" });

@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { TypeUserData, TypeUserDataDB } from '../@types/userData';
+import Role from '../models/Role';
+import getRoleById from '../Utils/GetRoleByID';
 
 class AuthController {
   async signUp(req: Request, res: Response) {
@@ -80,6 +82,17 @@ class AuthController {
     } catch (error) {
       res.status(500).json({ msg: 'Erro interno do servidor', err: error });
     }
+  }
+
+  async dataToken(req: Request & { userData?: TypeUserDataDB }, res: Response) {
+    if (!req.userData?.role) {
+      return res.status(422).json({ msg: 'Role is undefined' });
+    }
+    const data = await getRoleById(req.userData?.role);
+    if (!data) {
+      return res.status(404).json({ msg: 'Role not found' });
+    }
+    return res.status(200).json({ dataToken: req.userData, role: data });
   }
 }
 

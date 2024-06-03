@@ -7,8 +7,8 @@ import { TypeUserData, TypeUserDataDB } from '../@types/userData';
 
 type User = Omit<TypeUserDataDB, 'password'>;
 
-function jwtMiddleware(
-  req: Request & { userData: User },
+function JwtMiddleware(
+  req: Request & { userData?: User },
   res: Response,
   next: NextFunction,
 ) {
@@ -34,4 +34,4 @@ function jwtMiddleware(
   });
 }
 
-module.exports = jwtMiddleware;
+export default JwtMiddleware;

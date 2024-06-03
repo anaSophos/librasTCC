@@ -20,7 +20,7 @@ router.delete('/category/:id', CategoryController.deleteOne);
 import AuthController from '../controllers/AuthController';
 import PermissionController from '../controllers/PermissionController';
 import RoleController from '../controllers/RoleController';
-import JwtMiddleware from '../auth/JwtMiddleware.ts';
+import JwtMiddleware from '../auth/jwtMiddleware.ts';
 
 router.post('/signUp', AuthController.signUp);
 router.get('/login', AuthController.signIn);

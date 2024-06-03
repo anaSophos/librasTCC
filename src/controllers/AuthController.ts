@@ -6,7 +6,7 @@ import { TypeUserData, TypeUserDataDB } from '../@types/userData';
 
 class AuthController {
   async signUp(req: Request, res: Response) {
-    const { userName, password } = req.body;
+    const { userName, password, role } = req.body;
     try {
       await Usuario.findOne({ userName: userName }).then((response) => {
         if (response) {
@@ -19,6 +19,7 @@ class AuthController {
               const usuario = {
                 userName,
                 password: hash,
+                role,
               };
               await Usuario.create(usuario).then((response) => {
                 if (!response) {
@@ -65,7 +66,11 @@ class AuthController {
       }
 
       const token = jwt.sign(
-        { userId: response._id, userName: response.userName },
+        {
+          userId: response._id,
+          userName: response.userName,
+          role: response.role,
+        },
         process.env.SECRET,
       );
 

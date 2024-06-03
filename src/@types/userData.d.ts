@@ -8,4 +8,5 @@ export type TypeUserDataDB = {
   _id: number;
   userName: string;
   password: string;
+  role: number;
 };

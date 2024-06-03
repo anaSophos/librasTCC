@@ -3,10 +3,12 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { TypeUserData } from '../@types/userData';
+import { TypeUserData, TypeUserDataDB } from '../@types/userData';
+
+type User = Omit<TypeUserDataDB, 'password'>;
 
 function jwtMiddleware(
-  req: Request & { userData: TypeUserData },
+  req: Request & { userData: User },
   res: Response,
   next: NextFunction,
 ) {
@@ -26,11 +28,9 @@ function jwtMiddleware(
   jwt.verify(token, process.env.Secret, (err, decoded) => {
     if (err) {
       return res.status(401).json({ msg: 'Token Inválido', error: err });
-    } else {
-      console.log(decoded);
-      req.userData = decoded as TypeUserData;
-      next();
     }
+    req.userData = decoded as User;
+    next();
   });
 }
 

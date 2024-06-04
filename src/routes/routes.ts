@@ -20,11 +20,11 @@ router.delete('/category/:id', CategoryController.deleteOne);
 import AuthController from '../controllers/AuthController';
 import PermissionController from '../controllers/PermissionController';
 import RoleController from '../controllers/RoleController';
-import JwtMiddleware from '../auth/jwtMiddleware.ts';
+import JwtMiddleware from '../auth/JwtMiddleware.ts';
 
 router.post('/signUp', AuthController.signUp);
-router.get('/login', AuthController.signIn);
-router.get('/payloadToken', JwtMiddleware, AuthController.dataToken);
+router.post('/login', AuthController.signIn);
+router.post('/payloadToken', JwtMiddleware, AuthController.dataToken);
 
 router.post('/role', RoleController.create);
 router.post('/permission', PermissionController.create);

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { TypeUserData, TypeUserDataDB } from '../@types/userData';
+import { TypeUserDataDB } from '../@types/userData';
 
 type User = Omit<TypeUserDataDB, 'password'>;
 

@@ -1,15 +1,14 @@
+import Suggestion from '../models/Suggestion.ts';
 import { Request, Response } from 'express';
-import Word from '../models/Word';
-import { findWordsByCategory } from '../utils/FindWordsByCategory.ts';
 
-class WordController {
+class SuggestionController {
   async create(req: Request, res: Response) {
     try {
       const body = req.body;
       console.log(body);
-      const a = await Word.create(body);
+      const a = await Suggestion.create(body);
       console.log(a);
-      res.status(201).json({ message: 'Word created successfully' });
+      res.status(201).json({ message: 'suggestion created successfully' });
     } catch (error) {
       res.status(400).json({
         message: 'Word creation failed',
@@ -20,7 +19,9 @@ class WordController {
 
   async getAll(req: Request, res: Response) {
     try {
-      const words = await Word.find().populate('wordDefinitions.category');
+      const words = await Suggestion.find().populate(
+        'wordDefinitions.category',
+      );
       res.status(200).json(words);
     } catch (error) {
       res
@@ -33,7 +34,7 @@ class WordController {
     try {
       const { name } = req.params;
       console.log(name);
-      const word = await Word.findOne({ nameWord: name }).populate(
+      const word = await Suggestion.findOne({ nameWord: name }).populate(
         'wordDefinitions.category',
       );
 
@@ -49,12 +50,10 @@ class WordController {
       });
     }
   }
-
   async findOneId(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      console.log(id);
-      const word = await Word.findOne({ _id: id });
+      const word = await Suggestion.findOne({ _id: id });
       if (word === null) {
         return res.status(200).json();
       }
@@ -71,13 +70,13 @@ class WordController {
     try {
       const { id } = req.params;
       const body = req.body;
-      const word = await Word.findOne({ _id: id });
+      const word: any = await Suggestion.findOne({ _id: id });
 
       if (word === null) {
         return res.status(200).json();
       }
       word.wordDefinitions.push(body.wordDefinitions[0]);
-      const addWordDefinitions = await Word.updateOne(
+      const addWordDefinitions = await Suggestion.updateOne(
         { _id: id },
         { $set: word },
       );
@@ -104,8 +103,10 @@ class WordController {
         });
       }
 
-      const word = await Word.updateOne({ _id: id }, { $set: body });
-      res.status(200).json({ message: 'Word updated successfully', word });
+      const word = await Suggestion.updateOne({ _id: id }, { $set: body });
+      res
+        .status(200)
+        .json({ message: 'suggestion updated successfully', word });
     } catch (error) {
       res.status(400).json({
         message: 'Error Update one failed',
@@ -113,23 +114,10 @@ class WordController {
       });
     }
   }
-  async findByCategory(req: Request, res: Response) {
-    try {
-      const category = req.params.category;
-      const words = await findWordsByCategory(category);
-      res.status(200).json(words);
-    } catch (error) {
-      res.status(500).json({
-        message: 'Error find category failed',
-        error: (error as Error).message,
-      });
-    }
-  }
-
   async deleteOne(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const data = await Word.deleteOne({ _id: id });
+      const data = await Suggestion.deleteOne({ _id: id });
       res.status(200).json({ message: 'Category deleted successfully', data });
     } catch (error) {
       res.status(400).json({
@@ -140,4 +128,4 @@ class WordController {
   }
 }
 
-export default new WordController();
+export default new SuggestionController();

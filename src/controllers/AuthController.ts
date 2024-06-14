@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { TypeUserData, TypeUserDataDB } from '../@types/userData';
 import Role from '../models/Role';
-import getRoleById from '../Utils/GetRoleByID';
+import getRoleById from '../utils/GetRoleByID';
 
 class AuthController {
   async signUp(req: Request, res: Response) {
@@ -46,6 +46,7 @@ class AuthController {
   }
   async signIn(req: Request & { userData?: TypeUserData }, res: Response) {
     const { userName, password } = req.body;
+    console.log(req.body);
     try {
       const response: TypeUserDataDB | null = await Usuario.findOne({
         userName: userName,
@@ -77,6 +78,7 @@ class AuthController {
       );
 
       return res.status(201).json({
+        user: response.userName,
         token: token,
       });
     } catch (error) {

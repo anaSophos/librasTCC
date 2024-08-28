@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",                     // Ou outra versão do ECMAScript desejada
+    "rootDir": "./src/",
+    "module": "commonjs",                // Ou "esnext" para ECMAScript modules
+    "outDir": "./dist",
+    "allowJs": true,                  // Pasta de saída para os arquivos transpilados
+    "strict": true,                      // Ativa todas as opções rigorosas de verificação de tipos
+    "esModuleInterop": true,             // Permite importar módulos CommonJS usando a sintaxe de módulo ES
+    "sourceMap": true,
+    "allowImportingTsExtensions":true,
+    "noEmit": true,
+    "resolveJsonModule": true  
+                // Gera arquivos de mapeamento de origem para depuração
+  },
+  "include": [
+    "src/**/*.ts"                       // Pasta onde estão seus arquivos TypeScript
+, "src/server.ts", "src/loaders/index.js", "src/loaders/mongoBD.js"    ],
+  "exclude": [
+    "node_modules"                      // Pasta que não deve ser compilada
+  ]
+}

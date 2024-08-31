@@ -30,6 +30,7 @@ router.post('/category', CategoryController.create);
 router.put('/category/:id', CategoryController.updateOne);
 router.get('/category/:id', CategoryController.findOne);
 router.delete('/category/:id', CategoryController.deleteOne);
+router.get('/category_showInMenu', CategoryController.findByShowInMenu);
 
 import AuthController from '../controllers/AuthController';
 import PermissionController from '../controllers/PermissionController';

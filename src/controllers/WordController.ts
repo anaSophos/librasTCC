@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import Fuse from 'fuse.js';
 import Word from '../models/Word';
 import { findWordsByCategory } from '../utils/FindWordsByCategory.ts';
 
@@ -113,6 +114,7 @@ class WordController {
       });
     }
   }
+
   async findByCategory(req: Request, res: Response) {
     try {
       const category = req.params.category;
@@ -134,6 +136,41 @@ class WordController {
     } catch (error) {
       res.status(400).json({
         message: 'Error Delete failed',
+        error: (error as Error).message,
+      });
+    }
+  }
+
+  // Novo método de busca
+  async search(req: Request, res: Response) {
+    try {
+      const query = req.params.query;
+
+      const words = await Word.find();
+
+      const fuseOptions = {
+        // isCaseSensitive: false,
+        // includeScore: false,
+        // shouldSort: true,
+        // includeMatches: false,
+        // findAllMatches: false,
+        // minMatchCharLength: 1,
+        // location: 0,
+        // threshold: 0.6,
+        // distance: 100,
+        // useExtendedSearch: false,
+        // ignoreLocation: false,
+        // ignoreFieldNorm: false,
+        // fieldNormWeight: 1,
+        keys: ['nameWord'],
+      };
+
+      const fuse = new Fuse(words, fuseOptions);
+
+      res.status(200).json(fuse.search(query));
+    } catch (error) {
+      res.status(500).json({
+        message: 'Error Search failed',
         error: (error as Error).message,
       });
     }

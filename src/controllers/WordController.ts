@@ -7,11 +7,13 @@ class WordController {
   async create(req: Request, res: Response) {
     try {
       const body = req.body;
+      console.log('entrou aui');
       console.log(body);
       const a = await Word.create(body);
-      console.log(a);
+      console.log(a + 'passou tem algo');
       res.status(201).json({ message: 'Word created successfully' });
     } catch (error) {
+      console.log((error as Error).message);
       res.status(400).json({
         message: 'Word creation failed',
         error: (error as Error).message,
@@ -119,6 +121,7 @@ class WordController {
     try {
       const category = req.params.category;
       const words = await findWordsByCategory(category);
+      console.log(words);
       res.status(200).json(words);
     } catch (error) {
       res.status(500).json({

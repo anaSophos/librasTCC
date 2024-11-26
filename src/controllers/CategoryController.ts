@@ -69,6 +69,7 @@ class CategoryController {
   async deleteOne(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
+      console.log(id + 'id que chegou para delete');
       const data = await Category.deleteOne({ _id: id });
       res.status(200).json({ message: 'Category deleted successfully', data });
     } catch (error) {

@@ -7,6 +7,10 @@ const suggestionSchema = new Schema({
     type: String,
     required: true,
   },
+  emailContact: {
+    type: String,
+    required: true,
+  },
   wordDefinitions: [
     {
       _id: {

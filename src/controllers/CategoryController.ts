@@ -28,6 +28,18 @@ class CategoryController {
     }
   }
 
+  async findByShowInMenu(req: Request, res: Response): Promise<void> {
+    try {
+      const data = await Category.find({ showInMenu: true });
+      data.sort((a, b) => a.nameCategory.localeCompare(b.nameCategory));
+      res.status(200).json(data);
+    } catch (error) {
+      res
+        .status(400)
+        .json({ message: 'Error Get failed', error: (error as Error).message });
+    }
+  }
+
   async findOne(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -57,6 +69,7 @@ class CategoryController {
   async deleteOne(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
+      console.log(id + 'id que chegou para delete');
       const data = await Category.deleteOne({ _id: id });
       res.status(200).json({ message: 'Category deleted successfully', data });
     } catch (error) {

@@ -30,6 +30,11 @@ const suggestionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
       },
+      fileType: {
+        type: String,
+        //enum: ['image', 'gif', 'video'], // Define os tipos possíveis de arquivos
+        required: true,
+      },
     },
   ],
 });

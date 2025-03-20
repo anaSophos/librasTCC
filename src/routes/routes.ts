@@ -11,6 +11,7 @@ import JwtMiddleware from '../auth/JwtMiddleware.ts';
 
 // Rotas para palavras (words)
 router.post('/word', WordController.create);
+router.post('/word/update', WordController.updateWordFull);
 router.get('/word', WordController.getAll);
 router.get('/word/category/:category', WordController.findByCategory);
 router.get('/word/:name', WordController.findOne);

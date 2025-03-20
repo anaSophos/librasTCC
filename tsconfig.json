@@ -15,7 +15,7 @@
   },
   "include": [
     "src/**/*.ts"                       // Pasta onde estão seus arquivos TypeScript
-, "src/server.ts", "src/loaders/index.js", "src/loaders/mongoBD.js"    ],
+, "src/server.ts", "src/loaders/index.js", "src/loaders/mongoBD.js", "src/teste.ts"    ],
   "exclude": [
     "node_modules"                      // Pasta que não deve ser compilada
   ]

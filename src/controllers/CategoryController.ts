@@ -43,7 +43,10 @@ class CategoryController {
   async findOne(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
+      console.log(id);
+      console.log(req.params);
       const data = await Category.findById(id);
+      console.log(data);
       res.status(200).json(data);
     } catch (error) {
       res

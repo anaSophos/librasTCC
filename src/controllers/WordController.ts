@@ -20,6 +20,28 @@ class WordController {
       });
     }
   }
+  async updateWordFull(req: Request, res: Response) {
+    try {
+      const body = req.body;
+      console.log('entrou updatedword');
+      console.log(body);
+      const a = await Word.updateOne(
+        { _id: req.body._id },
+        { $set: body },
+        {
+          new: true,
+        },
+      );
+      console.log(a + 'passou tem algo');
+      res.status(201).json({ message: 'Word created successfully' });
+    } catch (error) {
+      console.log((error as Error).message);
+      res.status(400).json({
+        message: 'Word creation failed',
+        error: (error as Error).message,
+      });
+    }
+  }
 
   async getAll(req: Request, res: Response) {
     try {
@@ -120,6 +142,7 @@ class WordController {
   async findByCategory(req: Request, res: Response) {
     try {
       const category = req.params.category;
+      console.log(category);
       const words = await findWordsByCategory(category);
       console.log(words);
       res.status(200).json(words);
